@@ -81,7 +81,9 @@ func (client *DownloaderClient) BeginDownload() error {
 				}
 				client.Info.BlockList[nextBlock].Downloading = true
 				client.Info.BlockList[nextBlock].retryCount = 0
-				go client.Info.BlockList[nextBlock].download(client, client.Info.Uris[0], ch)
+				if len(client.Info.Uris) != 0 {
+					go client.Info.BlockList[nextBlock].download(client, client.Info.Uris[0], ch)
+				}
 			}
 			close(ch)
 		}()
